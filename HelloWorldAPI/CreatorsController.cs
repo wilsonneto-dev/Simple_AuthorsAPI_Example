@@ -22,7 +22,7 @@ namespace HelloWorldAPI
     }
 
     [ApiController]
-    [Route("/api/hello")]
+    [Route("/api/authors")]
     public class CreatorsController : ControllerBase
     {
         [HttpGet]
