@@ -1,0 +1,47 @@
+name: Deploy [Staging]
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+    name: Buinding and Deploying the app
+    
+    env: 
+      APP_FOLDER: "./HelloWorldAPI"
+      WEB_APP_NAME: "ec-expertsclub02-poc"
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Getting code
+        uses: actions/checkout@v2
+        
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.301
+          
+      - name: Build with dotnet
+        run: dotnet build ${{ env.APP_FOLDER }} --configuration Release
+        
+      - name: Publish 
+        run: dotnet publish ${{ env.APP_FOLDER }} -c Release -o app
+
+      - name: Azure Login - Conectando com Credenciais no Azure
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: Publishing to Azure
+        uses: Azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.WEB_APP_NAME }}
+          slot-name: staging
+          package: './app'
+          
