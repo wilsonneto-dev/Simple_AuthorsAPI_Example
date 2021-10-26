@@ -46,8 +46,26 @@ namespace HelloWorldAPI
                 tags = new List<string>() { ".Net", "Azure", "DevOps", "Tudo mais..." }
             };
 
+            var Vinicius = new AuthorCard()
+            {
+                DisplayName = "vinijmoura",
+                Description = "Microsoft MVP on Developer Technologies focused in DevOps",
+                Online = true,
+                Photo = "https://avatars.githubusercontent.com/u/8333012?v=4",
+                tags = new List<string>() { ".Net", "Azure", "DevOps", "Tudo mais..." }
+            };
+
+            var Wilson = new AuthorCard()
+            {
+                DisplayName = "wilsonneto-dev",
+                Description = "SSE",
+                Online = true,
+                Photo = "https://avatars.githubusercontent.com/u/20674439?v=4",
+                tags = new List<string>() { "aprendendo ai..." }
+            };
+
             return Ok(new List<AuthorCard>() { 
-                Renato, Milton
+                Renato, Milton, Vinicius, Wilson
             });
         }
     }
